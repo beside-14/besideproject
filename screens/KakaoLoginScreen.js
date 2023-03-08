@@ -9,7 +9,7 @@ const client_id = "5563e49be9c11f272584ea0a7c4a59f4"; //애플리케이션 등�
 const redirect_uri = "http://192.168.219.100:19006"; 
 //인가 코드가 리다이렉트될 URI 
 //(서버 생성 후 변경필요: code(-1004) Could not connect to the server 에러 발생, 
-//                      모바일에서 접근불가능한 url 불가)
+// 테스트의 경우, http://[본인IP]:[expo web port number] 를 kakao developer 의 redirect url에 등록후 가능. )
 
 const KakaoLoginScreen = ({ navigation }) => {
   function LogInProgress(data) {
@@ -43,7 +43,7 @@ const KakaoLoginScreen = ({ navigation }) => {
       },
     })
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
 
         returnValue = response.data.access_token;
       })
