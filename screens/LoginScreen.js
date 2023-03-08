@@ -1,54 +1,128 @@
-import React from "react";
-import { View, Button, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  View,
+  Button,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+  Text,
+} from "react-native";
 
 function LoginScreen({ navigation }) {
-  const [ id, onChangeID] = React.useState('');
-  const [ pw, onChangePW] = React.useState('') 
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+
+  function login() {
+    if (id.trim() === "") {
+      Alert.alert("아이디 입력 확인", "아이디가 입력되지 않았습니다.");
+    } else if (pw.trim() === "") {
+      Alert.alert("비밀번호 입력 확인", "비밀번호가 입력되지 않았습니다.");
+    } else {
+      axios({
+        method: "post",
+        url: "http://~/login", //추후 변경
+        params: {
+          id: id,
+          pw: pw,
+        },
+      })
+        .then(function (response) {
+          console.log(response.data);
+          if (response.data !== null && response.data != "") {
+            Alert.alert("로그인 성공");
+          } else {
+            Alert.alert("로그인 실패", "아이디 또는 비밀번호를 확인하세요.");
+            setId("");
+            setPw("");
+          }
+        })
+        .catch(function (error) {
+          Alert.alert("로그인 실패");
+          console.log("error", error);
+        });
+    }
+  }
+
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <TextInput style={styles.input} onChangeText={onChangeID} value={id}/>
-        <TextInput style={styles.input} onChangeText={onChangePW} value={pw}/>
-        <Button style={styles.buttonSign} title="Login" onPress={() => navigation.navigate("Login")}/>
+        <TextInput
+          style={styles.input}
+          placeholder="아이디"
+          onChangeText={(id) => setId(id)}
+          value={id}
+        />
+        <TextInput
+          style={styles.input}
+          textContentType="password"
+          placeholder="비밀번호"
+          onChangeText={(pw) => setPw(pw)}
+          value={pw}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity style={styles.buttonLogin} onPress={() => login()}>
+          <Text>로그인</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <Button style={styles.buttonSign} title="Sign Up" onPress={() => navigation.navigate("Signup")} />
-        <TouchableOpacity style={styles.buttonAppleStyle} activeOpacity={0.5} onPress={() => navigation.navigate("Kakao")}>
-          <Image source={require('../assets/kakao_login_medium_wide.png')}/>
+        <Button
+          style={styles.buttonSign}
+          title="Sign Up"
+          onPress={() => navigation.navigate("Signup")}
+        />
+        <TouchableOpacity
+          style={styles.buttonAppleStyle}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Kakao")}
+        >
+          <Image source={require("../assets/kakao_login_medium_wide.png")} />
         </TouchableOpacity>
-
       </View>
     </View>
   );
-};
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
     marginTop: 30,
-    padding: 30
+    padding: 30,
   },
   input: {
     height: 40,
     margin: 12,
-    backgroundColor:'white'
+    backgroundColor: "white",
   },
   buttonKakaoStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     height: 40,
-    borderRadius:5,
-    margin:5
+    borderRadius: 5,
+    margin: 5,
+  },
+  buttonLogin: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "ivory",
+    borderWidth: 0.5,
+    margin: 5,
+    height: 40,
+    borderRadius: 5,
+    justifyContent: "center",
   },
   buttonSign: {
-    flexDirection: 'row',
-    alignItems:'center',
-    backgroundColor:'rgb(6, 188, 238)',
-    borderWidth:0.5,
-    margin:5,
-    height:40,
-    borderRadius:5
-  }
-})
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgb(6, 188, 238)",
+    borderWidth: 0.5,
+    margin: 5,
+    height: 40,
+    borderRadius: 5,
+  },
+});
 
 export default LoginScreen;
