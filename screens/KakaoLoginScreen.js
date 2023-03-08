@@ -6,7 +6,7 @@ import axios from "axios";
 const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
 // https://developers.kakao.com/ 에서 내 애플리케이션 등록 후 해당 정보 입력 후 사용!
 const client_id = "5563e49be9c11f272584ea0a7c4a59f4"; //애플리케이션 등록 후 발급받은 REST API 키
-const redirect_uri = "http://localhost:8080"; 
+const redirect_uri = "http://192.168.219.100:19006"; 
 //인가 코드가 리다이렉트될 URI 
 //(서버 생성 후 변경필요: code(-1004) Could not connect to the server 에러 발생, 
 //                      모바일에서 접근불가능한 url 불가)
@@ -43,6 +43,8 @@ const KakaoLoginScreen = ({ navigation }) => {
       },
     })
       .then(function (response) {
+        console.log(response.data);
+
         returnValue = response.data.access_token;
       })
       .catch(function (error) {
