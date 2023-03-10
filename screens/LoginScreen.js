@@ -63,16 +63,17 @@ function LoginScreen({ navigation }) {
           value={pw}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.buttonLogin} onPress={() => login()}>
+        <TouchableOpacity style={styles.buttonlogin} onPress={() => login()}>
           <Text>로그인</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
-        <Button
-          style={styles.buttonSign}
+        <TouchableOpacity 
+          style={styles.buttonlogin}
           title="Sign Up"
           onPress={() => navigation.navigate("Signup")}
-        />
+        ><Text>회원가입</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonAppleStyle}
           activeOpacity={0.5}
@@ -103,8 +104,9 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 5,
     margin: 5,
+    justifyContent: "center",
   },
-  buttonLogin: {
+  buttonlogin: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "ivory",
@@ -114,15 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
   },
-  buttonSign: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgb(6, 188, 238)",
-    borderWidth: 0.5,
-    margin: 5,
-    height: 40,
-    borderRadius: 5,
-  },
+ 
 });
 
 export default LoginScreen;
