@@ -47,16 +47,6 @@ function LoginScreen({ navigation }) {
   }
 
   return (
-<<<<<<< HEAD
-    <View style={styles.container}>
-        <TextInput style={styles.input} onChangeText={onChangeID} value={id}/>
-        <TextInput style={styles.input} onChangeText={onChangePW} value={pw}/>
-        <Button title="Login" onPress={() => navigation.navigate("Login")}/>
-        <Button title="Sign Up" onPress={() => navigation.navigate("Signup")} />
-        <TouchableOpacity style={styles.buttonAppleStyle} activeOpacity={0.5} onPress={() => navigation.navigate("Kakao")}>
-          <Image source={require('../assets/kakao_login_medium_wide.png')}/>
-        </TouchableOpacity>
-=======
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
         <TextInput
@@ -91,7 +81,6 @@ function LoginScreen({ navigation }) {
           <Image source={require("../assets/kakao_login_medium_wide.png")} />
         </TouchableOpacity>
       </View>
->>>>>>> e3712f42671502b0553b29bbe2c27ff75b7c6b10
     </View>
   );
 }
@@ -125,9 +114,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
   },
-<<<<<<< HEAD
-})
-=======
   buttonSign: {
     flexDirection: "row",
     alignItems: "center",
@@ -138,6 +124,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
->>>>>>> e3712f42671502b0553b29bbe2c27ff75b7c6b10
 
 export default LoginScreen;
