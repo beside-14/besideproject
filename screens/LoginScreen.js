@@ -10,6 +10,7 @@ import {
   Alert,
   Text,
 } from "react-native";
+import * as AppleAuthentication from "expo-apple-authentication";
 
 function LoginScreen({ navigation }) {
   const [id, setId] = useState("");
@@ -74,6 +75,24 @@ function LoginScreen({ navigation }) {
           onPress={() => navigation.navigate("Signup")}
         ><Text>회원가입</Text>
         </TouchableOpacity>
+        <AppleAuthentication.AppleAuthenticationButton 
+          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN} 
+          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK} 
+          cornerRadius={5} 
+          style = {{ width:300, height: 44}}
+          onPress= {async () => {
+          try {
+            const credential = await AppleAuthentication.signInAsync({requestedScopes: [ AppleAuthentication.ApplethenticationScope.FULL_NAME, AppleAuthentication.AppleAuthenticationScope.EMAIL,],});
+          } catch(e) {
+            if (e.code === 'ERR_REQUEST_CANCLED') {
+              //handle that the user cancled the sign-in flow
+            } 
+            else {
+              //handle other errors
+            }
+          }
+        }}
+        />
         <TouchableOpacity
           style={styles.buttonAppleStyle}
           activeOpacity={0.5}
